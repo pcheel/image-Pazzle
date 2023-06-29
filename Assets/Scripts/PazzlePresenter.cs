@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PazzlePresenter
@@ -8,14 +6,16 @@ public class PazzlePresenter
     private IPazzleView _pazzleView;
     private PazzleData _pazzleData;
 
-    public PazzlePresenter(IPazzleModel pazzleModel, IPazzleView pazzleView, PazzleData pazzleData, GameObject tilePrefab, IFactory factory)
+    public PazzlePresenter(IPazzleModel pazzleModel, IPazzleView pazzleView, PazzleData pazzleData, GameObject generalCellPrefab, GameObject imageCellPrefab, IFactory factory)
     {
         _pazzleModel = pazzleModel;
         _pazzleView = pazzleView;
         _pazzleData = pazzleData;
         Enable();
-        _pazzleModel.SetPazzleData(pazzleData);
-        _pazzleModel.CreateGrid(tilePrefab, factory, _pazzleView.tileParent);
+        _pazzleView.SetImage(pazzleData.image);
+        _pazzleModel.SetPazzleDataAndFactory(pazzleData, factory);
+        _pazzleModel.CreateGrid(generalCellPrefab, _pazzleView.generalCellParent);
+        _pazzleModel.SliceImage(imageCellPrefab, _pazzleView.imageCellParent);
     }
 
     private void Enable()

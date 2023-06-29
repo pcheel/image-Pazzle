@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GeneralFactory : MonoBehaviour, IFactory
@@ -17,13 +15,23 @@ public class GeneralFactory : MonoBehaviour, IFactory
         GameObject pazzleViewGO = Instantiate(pazzleViewPrefab, parent);
         return pazzleViewGO.GetComponent<IPazzleView>();
     }
-    public PazzlePresenter CreatePazzlePresenter(IPazzleModel pazzleModel, IPazzleView pazzleView, PazzleData pazzleData, GameObject tilePrefab, IFactory factory)
+    public PazzlePresenter CreatePazzlePresenter(IPazzleModel pazzleModel, IPazzleView pazzleView, PazzleData pazzleData, GameObject generalCellPrefab, GameObject imageCellPrefab, IFactory factory)
     {
-        return new PazzlePresenter(pazzleModel, pazzleView, pazzleData, tilePrefab, factory);
+        return new PazzlePresenter(pazzleModel, pazzleView, pazzleData, generalCellPrefab, imageCellPrefab, factory);
     }
-    public ITileView CreateTileView(GameObject tileViewPrefab, Transform parent)
+    public CellView CreateCellView(GameObject cellViewPrefab, Transform parent)
     {
-        GameObject tileGO = Instantiate(tileViewPrefab, parent);
-        return tileGO.GetComponent<ITileView>();
+        GameObject cellViewGO = Instantiate(cellViewPrefab, parent);
+        return cellViewGO.GetComponent<CellView>();
+    }
+    public IImageCellView CreateImageCellView(GameObject imageCellViewPrefab, Transform parent)
+    {
+        GameObject imageCellViewGO = Instantiate(imageCellViewPrefab, parent);
+        return imageCellViewGO.GetComponent<IImageCellView>();
+    }
+    public IImageInCollectionView CreateImageInCollectionView(GameObject imageInCollectionPrefab, Transform parent) 
+    {
+        GameObject imageInCollectionGO = Instantiate(imageInCollectionPrefab, parent);
+        return imageInCollectionGO.GetComponent<IImageInCollectionView>();
     }
 }
